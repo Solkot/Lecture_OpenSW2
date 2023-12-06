@@ -19,7 +19,7 @@ def split_dataset(dataset_df):
 	dataset_df_copy2['salary'] *= 0.001
 
 	return train_test_split(dataset_df_copy2.drop(columns=['salary']), dataset_df_copy2['salary'], test_size=0.1014, shuffle = False)
-
+	#1718행의 기준에 맞게 test_size=0.1014를 조정하여 진행하였습니다.
 def extract_numerical_cols(dataset_df):
 	#TODO: Implement this function
 	dataset_df_copy3 = dataset_df.copy()
@@ -37,12 +37,12 @@ def train_predict_random_forest(X_train, Y_train, X_test):
 	rf_reg = RandomForestRegressor()
 	rf_reg.fit(X_train, Y_train)
 	return rf_reg.predict(X_test)
-
+#각각의 함수에 따른 회귀를 진행합니다.
 def train_predict_svm(X_train, Y_train, X_test):
 	#TODO: Implement this function
 	svm_pipe = make_pipeline(
         StandardScaler(),
-        SVR()
+        SVR() #Pipeline 구조 및 정ㄱ규화 과정을 통해 정확도를 증가시킵니다.
     )
 	svm_pipe.fit(X_train, Y_train)
 	return svm_pipe.predict(X_test)
@@ -50,6 +50,7 @@ def train_predict_svm(X_train, Y_train, X_test):
 def calculate_RMSE(labels, predictions):
 	#TODO: Implement this function
 	return np.sqrt(np.mean((labels - predictions)**2))
+	#최소제곱법을 통해 모델의 RMSE를 구해서 진행합니다.
 
 if __name__=='__main__':
 	#DO NOT MODIFY THIS FUNCTION UNLESS PATH TO THE CSV MUST BE CHANGED.
